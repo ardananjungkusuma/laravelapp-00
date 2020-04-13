@@ -3,29 +3,25 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Mahasiswa;
 
 class MahasiswaController extends Controller
 {
     public function index()
     {
-        //mengambil data dari tabel mahasiswa
-        $mahasiswa = DB::table('mahasiswa')->get();
-
-        //mengirim data mahasiswa ke view index
+        $mahasiswa = Mahasiswa::all();
         return view('index', ['mahasiswa' => $mahasiswa]);
     }
 
     public function tambah()
     {
-        //memanggil view tambah
         return view('tambah');
     }
 
     public function simpan(Request $request)
     {
         // insert data ke table mahasiswa
-        DB::table('mahasiswa')->insert([
+        Mahasiswa::create([
             'nama' => $request->namamhs,
             'nim' => $request->nimmhs,
             'email' => $request->emailmhs,
@@ -37,25 +33,24 @@ class MahasiswaController extends Controller
     public function update(Request $request)
     {
         // update data mahasiswa
-        DB::table('mahasiswa')->where('id', $request->id)->update([
-            'nama' => $request->namamhs,
-            'nim' => $request->nimmhs,
-            'email' => $request->emailmhs,
-            'jurusan' => $request->jurusanmhs
-        ]);
+        $mahasiswa = Mahasiswa::find($request->id);
+        $mahasiswa->nama = $request->namamhs;
+        $mahasiswa->nim = $request->nimmhs;
+        $mahasiswa->email = $request->emailmhs;
+        $mahasiswa->jurusan = $request->jurusanmhs;
+        $mahasiswa->save();
         return redirect('/');
     }
 
     public function detail($id)
     {
-        $mahasiswa = DB::table('mahasiswa')->where('id', $id)->get();
-
+        $mahasiswa = Mahasiswa::find($id);
         return view('detail', ['mahasiswa' => $mahasiswa]);
     }
 
     public function edit($id)
     {
-        $mahasiswa = DB::table('mahasiswa')->where('id', $id)->get();
+        $mahasiswa = Mahasiswa::find($id);
 
         return view('edit', ['mahasiswa' => $mahasiswa]);
     }
@@ -63,8 +58,8 @@ class MahasiswaController extends Controller
     public function hapus($id)
     {
         // hapus data mahasiswa by id
-        DB::table('mahasiswa')->where('id', $id)->delete();
-
+        $mahasiswa = Mahasiswa::find($id);
+        $mahasiswa->delete();
         return redirect('/');
     }
 }

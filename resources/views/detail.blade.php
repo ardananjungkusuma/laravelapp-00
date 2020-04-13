@@ -9,19 +9,17 @@
 <br>
 <br>
 
-@foreach($mahasiswa as $mhs)
-<h5 class="card-title">{{ $mhs->nama }}</h5>
+<h5 class="card-title">{{ $mahasiswa->nama }}</h5>
 <p class="card-text">
     <label for=""><b>NIM : </b></label>
-    {{ $mhs->nim }}
+    {{ $mahasiswa->nim }}
 </p>
 <p class="card-text">
     <label for=""><b>Email : </b></label>
-    {{ $mhs->email }}
+    {{ $mahasiswa->email }}
 </p>
 <p class="card-text">
     <label for=""><b>Jurusan : </b></label>
-    {{ $mhs->jurusan }}
+    {{ $mahasiswa->jurusan }}
 </p>
-@endforeach
 @endsection

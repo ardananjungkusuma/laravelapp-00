@@ -8,7 +8,6 @@
 </head>
 
 <body>
-    @extends('layouts.app')
     <div class="container">
         <div class="row mt-3">
             <div class="col-md-6">

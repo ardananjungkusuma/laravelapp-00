@@ -25,6 +25,13 @@ class MahasiswaController extends Controller
 
     public function simpan(Request $request)
     {
+        $this->validate($request, [
+            'namamhs' => 'required',
+            'nimmhs' => 'required|numeric',
+            'emailmhs' => 'required|email',
+            'jurusanmhs' => 'required'
+        ]);
+
         // insert data ke table mahasiswa
         Mahasiswa::create([
             'nama' => $request->namamhs,
@@ -32,7 +39,7 @@ class MahasiswaController extends Controller
             'email' => $request->emailmhs,
             'jurusan' => $request->jurusanmhs
         ]);
-        return redirect('/');
+        return view('simpan', ['data' => $request]);
     }
 
     public function update(Request $request)
